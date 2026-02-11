@@ -4,6 +4,8 @@ A new interpretive framework for quantum mechanics where binary parity (odd/even
 
 **Author:** Karel John Murdoch (Independent Researcher)
 
+**DOI:** [10.5281/zenodo.18605570](https://zenodo.org/records/18605570)
+
 ## Papers
 
 1. **[parity-theory.pdf](parity-theory.pdf)** ([LaTeX source](parity-theory.tex)) -- Conceptual framework. Derives superposition, collapse, interference, entanglement, tunneling, the Zeno effect, and the quantum-gravity divide from a single principle: the Z2 parity of a universe's particle count.
