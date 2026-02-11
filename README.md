@@ -6,9 +6,9 @@ A new interpretive framework for quantum mechanics where binary parity (odd/even
 
 ## Papers
 
-1. **[PARITY-THEORY.md](PARITY-THEORY.md)** -- Conceptual framework. Derives superposition, collapse, interference, entanglement, tunneling, the Zeno effect, and the quantum-gravity divide from a single principle: the Z2 parity of a universe's particle count.
+1. **[parity-theory.pdf](parity-theory.pdf)** ([LaTeX source](parity-theory.tex)) -- Conceptual framework. Derives superposition, collapse, interference, entanglement, tunneling, the Zeno effect, and the quantum-gravity divide from a single principle: the Z2 parity of a universe's particle count.
 
-2. **[PARITY-FORMALISM.md](PARITY-FORMALISM.md)** -- Mathematical formalism. Full Lagrangian (6 terms), equations of motion, exact solutions for N=1,2,3 particle systems, consistency checks (Lorentz invariance, energy conservation, Schrodinger equation recovery), and connection to BCS theory, Z2 lattice gauge theory, and Many-Interacting-Worlds.
+2. **[parity-formalism.pdf](parity-formalism.pdf)** ([LaTeX source](parity-formalism.tex)) -- Mathematical formalism. Full Lagrangian (6 terms), equations of motion, exact solutions for N=1,2,3 particle systems, consistency checks (Lorentz invariance, energy conservation, Schrodinger equation recovery), and connection to BCS theory, Z2 lattice gauge theory, and Many-Interacting-Worlds.
 
 ## Core Claims
 
