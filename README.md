@@ -2,7 +2,7 @@
 
 A new interpretive framework for quantum mechanics where binary parity (odd/even particle count) governs the transition between quantum and classical behavior.
 
-**Author:** KJ M (Independent Researcher)
+**Author:** Karel John Murdoch (Independent Researcher)
 
 ## Papers
 
