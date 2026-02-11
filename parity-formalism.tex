@@ -1,0 +1,1004 @@
+\documentclass[aps,prl,preprint]{revtex4-2}
+
+\usepackage{amsmath,amssymb,amsfonts,hyperref,braket}
+\usepackage{booktabs}
+
+\begin{document}
+
+\title{Parity-Driven Quantum Mechanics: Mathematical Formalism}
+
+\author{KJ~M}
+\email{kjm@email.com}
+\affiliation{Independent Researcher}
+
+\date{February 2026}
+
+\begin{abstract}
+This document provides the complete mathematical formalism for the parity-driven quantum mechanics framework presented in the companion paper~\cite{companion}. We define the full field content, construct the Lagrangian, derive the equations of motion, present exact solutions for small particle-number systems, and establish the consistency of the theory with Lorentz invariance, energy conservation, the weak equivalence principle, and the recovery of standard quantum mechanics in appropriate limits. Two free parameters---the parity energy gap $\Delta_E$ and the anchoring coupling $\kappa$---determine all testable predictions.
+\end{abstract}
+
+\keywords{quantum foundations, parity formalism, $\mathbb{Z}_2$ symmetry, many-interacting-worlds, modified gravity, Lagrangian field theory, multiverse hopping}
+
+\maketitle
+
+%% ======================================================================
+\section{Notation and Conventions}
+\label{sec:notation}
+
+Throughout this document we adopt the following conventions:
+\begin{itemize}
+\item \textbf{Natural units:} $\hbar = c = 1$ unless explicitly restored for physical estimates.
+\item \textbf{Spacetime indices:} Greek letters $\mu, \nu, \rho, \sigma = 0, 1, 2, 3$ label spacetime coordinates.
+\item \textbf{Universe labels:} Latin letters $\alpha, \beta, \gamma = 1, 2, \ldots, K$ label distinct universes.
+\item \textbf{Metric signature:} $(-,+,+,+)$, so that $\eta_{\mu\nu} = \mathrm{diag}(-1,+1,+1,+1)$.
+\item \textbf{Einstein summation convention:} Repeated spacetime indices are summed unless stated otherwise.  Universe-label sums are always written explicitly.
+\item \textbf{Gamma matrices:} Satisfy the Clifford algebra $\{\gamma^\mu, \gamma^\nu\} = 2\eta^{\mu\nu}$.
+\item \textbf{Charge conjugation:} $\psi_c = C\bar{\psi}^T$ with $C = i\gamma^2\gamma^0$ in the Dirac representation.
+\item \textbf{Hermitian conjugate:} Denoted $\dagger$.  Complex conjugate: $*$.  Dirac adjoint: $\bar{\psi} = \psi^\dagger \gamma^0$.
+\item \textbf{Notation for sums over graph neighbors:} $\langle\alpha,\beta\rangle$ denotes a sum over edges of the multiverse graph $G_K$, counting each edge once.  $\beta \sim \alpha$ denotes a sum over all universes $\beta$ adjacent to $\alpha$.
+\item \textbf{Coordination number:} $z$ denotes the number of nearest neighbors of a vertex on $G_K$ (assumed uniform for a regular graph).
+\end{itemize}
+
+%% ======================================================================
+\section{Field Content}
+\label{sec:fields}
+
+\subsection{Universe Label Space}
+
+The multiverse is modeled as a discrete graph $G_K = (V, E)$ with:
+\begin{itemize}
+\item \textbf{Vertices:} $V = \{1, 2, \ldots, K\}$, each representing a distinct universe.
+\item \textbf{Edges:} $E \subseteq V \times V$, each representing a transit channel between two universes.
+\end{itemize}
+
+For a regular lattice in $d$ dimensions with lattice spacing $a$, the coordination number is $z = 2d$.  The continuum limit $K \to \infty$, $a \to 0$ with $t_1 a^2 = \hbar^2 / (2m)$ held fixed recovers the Schr\"odinger equation (Sec.~\ref{sec:schrodinger}).
+
+The graph Laplacian is:
+\begin{equation}
+(\Delta_G f)_\alpha = \sum_{\beta \sim \alpha} (f_\beta - f_\alpha) = \sum_{\beta \sim \alpha} f_\beta - z \, f_\alpha \,.
+\end{equation}
+
+\subsection{Fermion Field}
+
+In each universe $\alpha$, a Dirac spinor field $\psi_\alpha(x,t)$ represents the fundamental fermionic matter.  The total fermion number operator in universe $\alpha$ is:
+\begin{equation}
+N_\alpha = \int d^3x \; \psi_\alpha^\dagger(x,t) \, \psi_\alpha(x,t) \,.
+\end{equation}
+This counts all fermions (particles and antiparticles, all species) present in universe $\alpha$ at time $t$.  In the second-quantized theory, $N_\alpha$ has integer eigenvalues $n_\alpha \in \{0, 1, 2, \ldots\}$.
+
+The total multiverse fermion number is conserved:
+\begin{equation}
+N_{\mathrm{tot}} = \sum_{\alpha=1}^{K} N_\alpha = \mathrm{const.}
+\end{equation}
+
+\subsection{Parity Field ($\mathbb{Z}_2$ Order Parameter)}
+
+The parity of universe $\alpha$ is defined as:
+\begin{equation}
+\sigma_\alpha = (-1)^{N_\alpha} \in \{-1, +1\} \,.
+\end{equation}
+This is a \emph{derived} quantity, not an independent degree of freedom.  It is fully determined by $N_\alpha$.
+\begin{itemize}
+\item $\sigma_\alpha = +1$: Even parity.  All particles paired.  Classical-dominant regime.
+\item $\sigma_\alpha = -1$: Odd parity.  At least one unpaired particle.  Quantum-active regime.
+\end{itemize}
+
+This definition is consistent with the fermion parity superselection rule of Wick, Wightman, and Wigner~\cite{wick1952}, which forbids coherent superpositions of states with different fermion parity: the superselection sectors are exactly the eigenspaces of $(-1)^{N_\alpha}$.
+
+The total multiverse parity is:
+\begin{equation}
+\sigma_{\mathrm{tot}} = \prod_{\alpha=1}^{K} \sigma_\alpha = (-1)^{N_{\mathrm{tot}}} \,.
+\end{equation}
+This is a global invariant.  If $N_{\mathrm{tot}}$ is odd, at least one universe must always have odd parity.
+
+\subsection{Composite Boson (Pair) Field}
+
+We introduce a composite scalar field $\Phi_\alpha(x,t)$ representing a Cooper-pair-like condensate of paired fermions in universe $\alpha$.  This field is a bound-state order parameter analogous to the BCS gap parameter.
+
+In the mean-field approximation:
+\begin{equation}
+\langle \Phi_\alpha \rangle = \Delta_{\mathrm{pair}} \, e^{i\theta_\alpha}
+\end{equation}
+where $\Delta_{\mathrm{pair}}$ is the pairing gap amplitude and $\theta_\alpha$ is the phase in universe $\alpha$.
+
+$\Phi_\alpha$ is a complex scalar field with $U(1)$ phase symmetry.  As a composite of two fermions, it obeys Bose statistics and can form macroscopic condensates.  The pair number in universe $\alpha$ is:
+\begin{equation}
+N_\alpha^{\mathrm{pair}} = \int d^3x \; |\Phi_\alpha(x,t)|^2 \,.
+\end{equation}
+The number of unpaired fermions is $N_\alpha^{\mathrm{unpaired}} = N_\alpha - 2 N_\alpha^{\mathrm{pair}}$.
+
+\subsection{Metric Tensor}
+
+Each universe carries its own spacetime metric $g_{\mu\nu}^{(\alpha)}(x)$.  In the weak-field limit:
+\begin{equation}
+g_{\mu\nu}^{(\alpha)} = \eta_{\mu\nu} + h_{\mu\nu}^{(\alpha)}
+\end{equation}
+where $|h_{\mu\nu}^{(\alpha)}| \ll 1$.  The key departure from general relativity is that the source of $h_{\mu\nu}^{(\alpha)}$ is restricted to paired matter only (Sec.~\ref{sec:grav_lagrangian}).
+
+\subsection{Anchoring Field}
+
+The anchoring field $A_\alpha(x)$ quantifies the density of paired (classical) matter in the neighborhood of position $x$ in universe $\alpha$:
+\begin{equation}
+A_\alpha(x) = \sum_{I \in \mathrm{macro}} f(|x - x_I|) \, n_I^{\mathrm{paired}}
+\end{equation}
+where the sum runs over macroscopic objects $I$ at positions $x_I$, $n_I^{\mathrm{paired}}$ is the number of paired particles in object $I$, and $f(r)$ is a radial profile function normalized so that $\int f(r) \, d^3x = 1$.
+
+More precisely, in the continuum limit:
+\begin{equation}
+A_\alpha(x) = \kappa_A \int d^3x' \; K(|x - x'|) \, n_{\mathrm{pair}}(x')
+\end{equation}
+where $K(r)$ is a kernel function (e.g., Gaussian or Yukawa profile with range $r_{\mathrm{anchor}}$) and $n_{\mathrm{pair}}(x') = |\Phi_\alpha(x')|^2$ is the local pair density.  The anchoring field is not dynamical---it is slaved to the pair condensate.
+
+%% ======================================================================
+\section{The Lagrangian}
+\label{sec:lagrangian}
+
+The total Lagrangian of the multiverse is:
+\begin{equation}
+\boxed{\mathcal{L}_{\mathrm{total}} = \sum_{\alpha=1}^{K} \left[\mathcal{L}_{\mathrm{free}}^{(\alpha)} + \mathcal{L}_{\mathrm{pair}}^{(\alpha)} + \mathcal{L}_{\mathrm{parity}}^{(\alpha)} + \mathcal{L}_{\mathrm{grav}}^{(\alpha)} + \mathcal{L}_{\mathrm{anchor}}^{(\alpha)}\right] + \mathcal{L}_{\mathrm{transit}}}
+\label{eq:total_lagrangian}
+\end{equation}
+We now define each term.
+
+\subsection{Free Fermion Lagrangian}
+
+\begin{equation}
+\mathcal{L}_{\mathrm{free}}^{(\alpha)} = \bar{\psi}_\alpha \left(i \gamma^\mu D_\mu - m\right) \psi_\alpha
+\end{equation}
+This is the standard Dirac Lagrangian for fermions in universe $\alpha$.  The covariant derivative $D_\mu$ includes gauge field couplings (electromagnetic, weak, strong) within universe $\alpha$.  Each universe is independently Lorentz covariant.
+
+In the presence of a curved background:
+\begin{equation}
+\mathcal{L}_{\mathrm{free}}^{(\alpha)} = \sqrt{-g^{(\alpha)}} \; \bar{\psi}_\alpha \left(i \gamma^\mu e_{\ \mu}^{a} \nabla_a - m\right) \psi_\alpha
+\end{equation}
+where $e_{\ \mu}^{a}$ is the vierbein and $\nabla_a$ is the spin connection covariant derivative.
+
+\subsection{Pair Field Lagrangian}
+
+\begin{equation}
+\mathcal{L}_{\mathrm{pair}}^{(\alpha)} = |D_\mu \Phi_\alpha|^2 - \mu_{\mathrm{pair}}^2 |\Phi_\alpha|^2 - \lambda_{\mathrm{pair}} |\Phi_\alpha|^4 + g_{\mathrm{pair}}\left(\Phi_\alpha^* \, \psi_{\alpha,\uparrow} \psi_{\alpha,\downarrow} + \mathrm{h.c.}\right)
+\end{equation}
+
+\textbf{First term:} Kinetic energy of the pair condensate.  $D_\mu$ includes electromagnetic coupling with charge $2e$ (the pair carries twice the single-particle charge).
+
+\textbf{Second and third terms:} Mexican-hat potential.  For $\mu_{\mathrm{pair}}^2 < 0$, the potential has a minimum at:
+\begin{equation}
+|\Phi_\alpha|^2 = \frac{-\mu_{\mathrm{pair}}^2}{2\lambda_{\mathrm{pair}}} \equiv v_{\mathrm{pair}}^2 \,.
+\end{equation}
+Spontaneous symmetry breaking of the $U(1)$ phase symmetry yields a massless Goldstone mode (the pair phase $\theta_\alpha$) and a massive radial mode (the Higgs-like amplitude fluctuation) with mass $m_H = \sqrt{-2\mu_{\mathrm{pair}}^2}$.
+
+\textbf{Fourth term:} Yukawa coupling between the pair condensate and the underlying fermions.  The operator $\psi_{\alpha,\uparrow} \psi_{\alpha,\downarrow}$ creates a pair from two fermions with opposite spin projections.  The coupling constant $g_{\mathrm{pair}}$ has dimensions of $[\mathrm{mass}]^{-1}$ in $3+1$ dimensions.
+
+This Lagrangian is the relativistic generalization of the BCS gap equation.  In the non-relativistic limit with a Fermi surface, it reduces to the standard BCS Hamiltonian with gap parameter $\Delta = g_{\mathrm{pair}} \langle \Phi \rangle$.
+
+\subsection{Transit Lagrangian}
+
+\begin{equation}
+\mathcal{L}_{\mathrm{transit}} = \sum_{\langle\alpha,\beta\rangle} \left[t_1 \, \bar{\psi}_\alpha \, e^{i\phi_{\alpha\beta}} \, \psi_\beta + t_2 \, \Phi_\alpha^* \, \Phi_\beta + \mathrm{h.c.}\right]
+\end{equation}
+This is the inter-universe hopping Lagrangian.  It contains two channels:
+
+\textbf{Single-particle hopping} ($t_1$ term): A fermion hops from universe $\beta$ to universe $\alpha$.  This changes both $N_\alpha$ and $N_\beta$ by $\pm 1$, flipping the parity of both universes.  The phase $\phi_{\alpha\beta}$ is a gauge connection on the graph $G_K$ that ensures gauge invariance of the transit amplitude.  The hopping amplitude is:
+\begin{equation}
+t_1 = t_0 \, \exp\!\left(-\frac{\Delta_E}{k_B T}\right) .
+\end{equation}
+The exponential suppression by the parity energy gap $\Delta_E$ reflects the energetic cost of flipping parity.  At low temperatures, single-particle hopping is exponentially frozen out.
+
+\textbf{Pair hopping} ($t_2$ term): A pair (composite boson) hops from universe $\beta$ to universe $\alpha$.  This changes both $N_\alpha$ and $N_\beta$ by $\pm 2$, preserving the parity of both universes.  Since no parity flip is required:
+\begin{equation}
+t_2 = t_0 \,.
+\end{equation}
+The pair hopping amplitude is unsuppressed.  This is the dominant transit channel, especially at low temperatures.
+
+The hierarchy $t_2 \gg t_1$ at low temperatures is the microscopic origin of the macroscopic observation that paired systems (superconductors, BECs) maintain coherence while unpaired systems decohere.
+
+\subsection{Parity Lagrangian}
+
+\begin{equation}
+\mathcal{L}_{\mathrm{parity}}^{(\alpha)} = -\frac{\Delta}{2} \sigma_\alpha - J \sum_{\beta \sim \alpha} \sigma_\alpha \, \sigma_\beta
+\end{equation}
+This is an Ising model on the multiverse graph $G_K$:
+
+\textbf{On-site term} ($\Delta/2$): The energy cost of odd parity.  $\Delta > 0$ means even parity is energetically preferred.  This is the parity energy gap at the single-universe level.
+
+\textbf{Coupling term} ($J$): Nearest-neighbor parity interaction.  $J > 0$ is ferromagnetic---neighboring universes prefer the same parity.  This creates domains of aligned parity across the multiverse.
+
+Although $\sigma_\alpha$ is derived from $N_\alpha$, the Ising representation is useful for mean-field analysis and for identifying the parity phase transition.  The mean-field free energy is:
+\begin{equation}
+F(\langle\sigma\rangle) = -\frac{\Delta}{2}\langle\sigma\rangle - \frac{Jz}{2}\langle\sigma\rangle^2 + \frac{1}{2\beta_{\mathrm{eff}}}\left[\frac{1+\langle\sigma\rangle}{2}\ln\frac{1+\langle\sigma\rangle}{2} + \frac{1-\langle\sigma\rangle}{2}\ln\frac{1-\langle\sigma\rangle}{2}\right]
+\end{equation}
+where $\beta_{\mathrm{eff}}$ is an effective inverse temperature governing parity fluctuations.
+
+\subsection{Gravitational Lagrangian}
+\label{sec:grav_lagrangian}
+
+\begin{equation}
+\mathcal{L}_{\mathrm{grav}}^{(\alpha)} = -\frac{1}{16\pi G}\sqrt{-g^{(\alpha)}} \; R^{(\alpha)} + \sqrt{-g^{(\alpha)}} \; T_{\mu\nu}^{(\alpha),\mathrm{paired}} \, h^{(\alpha)\mu\nu}
+\end{equation}
+
+\textbf{The central modification.}  The first term is the standard Einstein--Hilbert action for the metric in universe $\alpha$.  The second term specifies the source: the stress-energy tensor of \emph{paired matter only}.
+
+The modified Einstein field equations are:
+\begin{equation}
+\boxed{G_{\mu\nu}^{(\alpha)} = 8\pi G \; T_{\mu\nu}^{(\alpha),\mathrm{paired}}}
+\label{eq:modified_einstein}
+\end{equation}
+where:
+\begin{equation}
+T_{\mu\nu}^{(\alpha),\mathrm{paired}} = T_{\mu\nu}^{(\alpha),\mathrm{total}} - T_{\mu\nu}^{(\alpha),\mathrm{unpaired}} \,.
+\end{equation}
+
+Explicitly, the paired stress-energy tensor is constructed from the pair condensate:
+\begin{equation}
+T_{\mu\nu}^{(\alpha),\mathrm{paired}} = (D_\mu \Phi_\alpha)^*(D_\nu \Phi_\alpha) + (D_\nu \Phi_\alpha)^*(D_\mu \Phi_\alpha) - g_{\mu\nu}^{(\alpha)} \mathcal{L}_{\mathrm{pair}}^{(\alpha)}
+\end{equation}
+plus the contribution of fermions that are part of bound pairs (those correlated with the condensate).  Unpaired fermions---those in transit between universes---do \emph{not} curve spacetime.  We propose that this is the central connection between parity and gravity.
+
+\subsection{Anchoring Lagrangian}
+
+\begin{equation}
+\mathcal{L}_{\mathrm{anchor}}^{(\alpha)} = -\kappa \, A_\alpha(x) \, \bar{\psi}_\alpha \psi_\alpha \, \frac{1 + \sigma_\alpha}{2}
+\end{equation}
+This term couples unpaired fermions to the anchoring field (the local density of paired matter).  The projection operator $(1 + \sigma_\alpha)/2$ selects the even-parity sector:
+\begin{equation}
+\frac{1 + \sigma_\alpha}{2} = \begin{cases} 1 & \text{if } \sigma_\alpha = +1 \text{ (even parity)} \\ 0 & \text{if } \sigma_\alpha = -1 \text{ (odd parity)} \end{cases}
+\end{equation}
+
+The physical interpretation: in an even-parity universe, the anchoring field acts as a potential that localizes fermions, suppressing transit.  In an odd-parity universe, the anchoring field has no effect---the universe is already quantum-active and particles are free to hop.
+
+The decoherence rate induced by the anchoring field is:
+\begin{equation}
+\Gamma_{\mathrm{decohere}} = \frac{\kappa \, A_\alpha(x)}{\hbar} \,.
+\end{equation}
+Restoring $\hbar$ for physical estimates: near a macroscopic object with $n_{\mathrm{pair}} \sim 10^{23}$ pairs, $\Gamma$ can be extremely large, producing effectively instantaneous decoherence---i.e., classical behavior.
+
+%% ======================================================================
+\section{Equations of Motion}
+\label{sec:eom}
+
+The equations of motion are obtained by applying the Euler--Lagrange equations to $\mathcal{L}_{\mathrm{total}}$.
+
+\subsection{Modified Dirac Equation}
+
+Varying $\mathcal{L}_{\mathrm{total}}$ with respect to $\bar{\psi}_\alpha$ yields the modified Dirac equation in universe $\alpha$:
+\begin{equation}
+\boxed{\left(i\gamma^\mu D_\mu - m\right)\psi_\alpha + g_{\mathrm{pair}} \, \Phi_\alpha \, \psi_{\alpha,c} + t_1 \sum_{\beta \sim \alpha} e^{i\phi_{\alpha\beta}} \psi_\beta - \kappa \, A_\alpha(x) \, \psi_\alpha \, \frac{1 + \sigma_\alpha}{2} = 0}
+\label{eq:modified_dirac}
+\end{equation}
+
+\textbf{Term by term:}
+\begin{enumerate}
+\item $(i\gamma^\mu D_\mu - m)\psi_\alpha$: Standard Dirac propagation within universe $\alpha$.
+\item $g_{\mathrm{pair}} \, \Phi_\alpha \, \psi_{\alpha,c}$: Pairing interaction.  Couples the fermion to the pair condensate via the charge-conjugate field $\psi_c$.  This is the Bogoliubov--de~Gennes coupling: a fermion can be absorbed into the condensate (paired) or emitted from it.
+\item $t_1 \sum_{\beta \sim \alpha} e^{i\phi_{\alpha\beta}} \psi_\beta$: Single-particle hopping from neighboring universes.  This is the source of quantum superposition---the fermion amplitude leaks into adjacent universes.
+\item $-\kappa \, A_\alpha(x) \, \psi_\alpha \, (1 + \sigma_\alpha)/2$: Anchoring.  In even-parity universes with large $A_\alpha$, this acts as an effective mass term that suppresses transit.
+\end{enumerate}
+
+In the non-relativistic limit ($E \approx m$, $|\mathbf{p}| \ll m$), the upper two components of $\psi_\alpha$ satisfy a modified Schr\"odinger equation:
+\begin{equation}
+i\hbar \frac{\partial}{\partial t}\chi_\alpha = \left[-\frac{\hbar^2}{2m}\nabla^2 + V(x)\right]\chi_\alpha + t_1 \sum_{\beta \sim \alpha} \chi_\beta + g_{\mathrm{pair}} \Delta_{\mathrm{pair}} \chi_\alpha^* - \kappa A_\alpha \chi_\alpha \frac{1+\sigma_\alpha}{2} \,.
+\end{equation}
+
+\subsection{Pair Field Equation}
+
+Varying with respect to $\Phi_\alpha^*$:
+\begin{equation}
+\boxed{\left(D^\mu D_\mu + \mu_{\mathrm{pair}}^2\right)\Phi_\alpha + 2\lambda_{\mathrm{pair}} |\Phi_\alpha|^2 \Phi_\alpha - g_{\mathrm{pair}} \, \psi_{\alpha,\uparrow} \psi_{\alpha,\downarrow} + t_2 \sum_{\beta \sim \alpha} \Phi_\beta = 0}
+\label{eq:pair_field}
+\end{equation}
+
+This is a nonlinear Klein--Gordon equation with:
+\begin{enumerate}
+\item $D^\mu D_\mu \Phi_\alpha$: Wave propagation of pairs within universe $\alpha$.
+\item $\mu_{\mathrm{pair}}^2 \Phi_\alpha + 2\lambda_{\mathrm{pair}}|\Phi_\alpha|^2 \Phi_\alpha$: Mexican-hat self-interaction driving spontaneous pairing.
+\item $-g_{\mathrm{pair}} \psi_{\uparrow}\psi_{\downarrow}$: Source term---fermions forming pairs feed the condensate.
+\item $t_2 \sum_{\beta \sim \alpha} \Phi_\beta$: Pair hopping from neighboring universes.  This is the Josephson coupling between universe condensates.
+\end{enumerate}
+
+In the static, uniform limit, this reduces to the BCS gap equation:
+\begin{equation}
+\Delta_{\mathrm{pair}} = g_{\mathrm{pair}}^2 \int_0^{\omega_D} \frac{d\epsilon}{\sqrt{\epsilon^2 + \Delta_{\mathrm{pair}}^2}} \tanh\!\left(\frac{\sqrt{\epsilon^2 + \Delta_{\mathrm{pair}}^2}}{2k_BT}\right)
+\end{equation}
+supplemented by the inter-universe Josephson term $t_2 \sum_\beta \Delta_\beta e^{i\theta_\beta}$.
+
+\subsection{Parity Dynamics}
+
+The parity variable $\sigma_\alpha = (-1)^{N_\alpha}$ is discrete and does not admit a continuous Euler--Lagrange equation.  Its dynamics are governed by a master equation (Glauber dynamics for the kinetic Ising model):
+\begin{equation}
+\boxed{\frac{d}{dt}P(\sigma_\alpha = s, t) = -\Gamma_{\mathrm{flip}}(s) \, P(\sigma_\alpha = s, t) + \Gamma_{\mathrm{flip}}(-s) \, P(\sigma_\alpha = -s, t)}
+\label{eq:parity_master}
+\end{equation}
+where $s \in \{-1, +1\}$ and the flip rate is:
+\begin{equation}
+\Gamma_{\mathrm{flip}}(s) = \Gamma_0 \exp\!\left(-\frac{s}{2k_BT}\left[\Delta + J \sum_{\beta \sim \alpha} \sigma_\beta\right]\right) .
+\end{equation}
+
+This is the standard Glauber spin-flip rate for the Ising model.  The rate depends on the local parity field---if the neighboring universes are all even ($\sigma_\beta = +1$), flipping from even to odd costs energy $\Delta + Jz$, and the rate is exponentially suppressed.
+
+The mean-field relaxation rate is:
+\begin{equation}
+\tau_{\mathrm{parity}}^{-1} = \Gamma_0 \left[\exp\!\left(-\frac{\Delta + Jz\langle\sigma\rangle}{2k_BT}\right) + \exp\!\left(\frac{\Delta + Jz\langle\sigma\rangle}{2k_BT}\right)\right] .
+\end{equation}
+
+At temperatures well below the parity gap, parity flips are exponentially rare, and the system is frozen into a definite parity sector.
+
+\subsection{Modified Einstein Field Equations}
+
+Varying $\mathcal{L}_{\mathrm{grav}}^{(\alpha)}$ with respect to $g^{(\alpha)\mu\nu}$:
+\begin{equation}
+\boxed{G_{\mu\nu}^{(\alpha)} = 8\pi G \; T_{\mu\nu}^{(\alpha),\mathrm{paired}}}
+\end{equation}
+
+The Bianchi identity $\nabla^\mu G_{\mu\nu} = 0$ requires $\nabla^\mu T_{\mu\nu}^{\mathrm{paired}} = 0$.  This is satisfied as long as unpaired fermions carry no gravitational charge---they are absent from the gravitational sector by construction.  Within the paired sector, covariant conservation holds by the standard argument.
+
+In the weak-field limit $g_{\mu\nu} = \eta_{\mu\nu} + h_{\mu\nu}$, the linearized equations give the Newtonian potential:
+\begin{equation}
+\nabla^2 \Phi_{\mathrm{grav}}^{(\alpha)} = 4\pi G \, \rho_{\mathrm{paired}}^{(\alpha)}
+\end{equation}
+where $\rho_{\mathrm{paired}}^{(\alpha)} = T_{00}^{(\alpha),\mathrm{paired}}$ is the energy density of paired matter only.
+
+\subsection{Anchoring Field Equation}
+
+The anchoring field $A_\alpha(x)$ is not dynamical.  It is determined instantaneously by the distribution of paired matter:
+\begin{equation}
+\boxed{A_\alpha(x) = \kappa_A \int d^3x' \; K(|x - x'|) \, n_{\mathrm{pair}}(x')}
+\label{eq:anchoring}
+\end{equation}
+where $n_{\mathrm{pair}}(x') = |\Phi_\alpha(x')|^2$ is the local pair density and $K(r)$ is a spatial kernel.  For a Yukawa profile:
+\begin{equation}
+K(r) = \frac{e^{-r/r_{\mathrm{anchor}}}}{4\pi r_{\mathrm{anchor}}^2 \, r} \,.
+\end{equation}
+
+The anchoring range $r_{\mathrm{anchor}}$ sets the scale over which classical matter induces decoherence.  Near a macroscopic detector ($n_{\mathrm{pair}} \sim 10^{23}$~cm$^{-3}$):
+\begin{equation}
+A_\alpha \sim \kappa_A \, n_{\mathrm{pair}} \, r_{\mathrm{anchor}}^3 \,.
+\end{equation}
+This determines the spatial range of the ``observation'' effect: how close a quantum system must be to a classical apparatus to decohere.
+
+%% ======================================================================
+\section{Exact Solutions}
+\label{sec:exact}
+
+\subsection{$N=1$, $K=2$: The Qubit}
+
+The simplest nontrivial system: one particle distributed between two universes.  The Hilbert space is spanned by:
+\begin{equation}
+\ket{1,0}, \quad \ket{0,1}
+\end{equation}
+where $\ket{n_1, n_2}$ denotes $n_1$ particles in universe~1 and $n_2$ in universe~2.  Both states have one universe odd and one even.
+
+The Hamiltonian restricted to this subspace is:
+\begin{equation}
+H = \begin{pmatrix} J & t_1 \\ t_1 & J \end{pmatrix} .
+\end{equation}
+The diagonal entries are the parity coupling energy (one even-odd pair contributes $-J \cdot (+1)(-1) = J$) and the off-diagonal entries are the single-particle hopping.
+
+\textbf{Eigenvalues:}
+\begin{equation}
+E_{\pm} = J \pm t_1 \,.
+\end{equation}
+
+\textbf{Eigenstates:}
+\begin{equation}
+\ket{\pm} = \frac{1}{\sqrt{2}}\left(\ket{1,0} \pm \ket{0,1}\right) .
+\end{equation}
+
+\textbf{Time evolution:}  Starting from $\ket{1,0}$:
+\begin{equation}
+\ket{\psi(t)} = \cos\!\left(\frac{t_1 t}{\hbar}\right)\ket{1,0} - i\sin\!\left(\frac{t_1 t}{\hbar}\right)\ket{0,1} \,.
+\end{equation}
+
+The particle oscillates between universes at angular frequency:
+\begin{equation}
+\omega = \frac{2t_1}{\hbar} \,.
+\end{equation}
+
+This is the textbook two-level system.  The Rabi oscillation between two quantum states is exactly inter-universe transit.  The ``superposition'' $\ket{+}$ is a particle equally shared between two universes.
+
+\subsection{$N=2$, $K=2$: The Pair}
+
+Two particles distributed between two universes.  The Hilbert space is spanned by:
+\begin{equation}
+\ket{2,0}, \quad \ket{1,1}, \quad \ket{0,2} \,.
+\end{equation}
+
+The parities are:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\toprule
+State & $\sigma_1$ & $\sigma_2$ & Parity product \\
+\midrule
+$\ket{2,0}$ & $+1$ & $+1$ & $+1$ \\
+$\ket{1,1}$ & $-1$ & $-1$ & $+1$ \\
+$\ket{0,2}$ & $+1$ & $+1$ & $+1$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Note: $\ket{2,0}$ and $\ket{0,2}$ are both-even (classical).  $\ket{1,1}$ is both-odd (quantum-active).
+
+The Hamiltonian is:
+\begin{equation}
+H = \begin{pmatrix} -\Delta - J & \sqrt{2}\,t_1 & t_2 \\ \sqrt{2}\,t_1 & \Delta - J & \sqrt{2}\,t_1 \\ t_2 & \sqrt{2}\,t_1 & -\Delta - J \end{pmatrix} .
+\end{equation}
+
+\textbf{Diagonal entries:}
+\begin{itemize}
+\item $\ket{2,0}$ and $\ket{0,2}$: Both universes even, so parity on-site energy is $-\Delta$ (even preferred).  Coupling: $\sigma_1 \sigma_2 = (+1)(+1) = +1$, contributing $-J$.
+\item $\ket{1,1}$: Both universes odd, so parity energy is $+\Delta$.  Coupling: $\sigma_1 \sigma_2 = (-1)(-1) = +1$, contributing $-J$.
+\end{itemize}
+
+\textbf{Off-diagonal entries:}
+\begin{itemize}
+\item $\langle 2,0|H|1,1\rangle = \sqrt{2}\,t_1$: One particle hops, factor $\sqrt{2}$ from bosonic enhancement (two equivalent single-particle hops).
+\item $\langle 2,0|H|0,2\rangle = t_2$: Both particles hop together as a pair.
+\end{itemize}
+
+\textbf{In the regime $\Delta \gg t_1$ (strong parity gap):}
+
+The $\ket{1,1}$ state is lifted in energy by $2\Delta$ relative to $\ket{2,0}$ and $\ket{0,2}$.  It is energetically frozen out.  The effective $2 \times 2$ Hamiltonian in the $\{\ket{2,0}, \ket{0,2}\}$ subspace is:
+\begin{equation}
+H_{\mathrm{eff}} = \begin{pmatrix} -\Delta - J + \dfrac{2t_1^2}{2\Delta} & t_2 + \dfrac{2t_1^2}{2\Delta} \\[8pt] t_2 + \dfrac{2t_1^2}{2\Delta} & -\Delta - J + \dfrac{2t_1^2}{2\Delta} \end{pmatrix}
+\end{equation}
+where the $t_1^2/(2\Delta)$ terms arise from second-order virtual hopping through $\ket{1,1}$ (Schrieffer--Wolff transformation).
+
+The pair oscillates between $\ket{2,0}$ and $\ket{0,2}$ at frequency:
+\begin{equation}
+\omega_{\mathrm{pair}} = \frac{2}{\hbar}\left(t_2 + \frac{t_1^2}{\Delta}\right) \approx \frac{2t_2}{\hbar}
+\end{equation}
+since $t_2 \gg t_1^2/\Delta$.  The pair hops as a unit, maintaining even parity in both universes throughout.
+
+\subsection{$N=3$, $K=2$: First Odd Total}
+
+Three particles in two universes.  The Hilbert space:
+\begin{equation}
+\ket{3,0}, \quad \ket{2,1}, \quad \ket{1,2}, \quad \ket{0,3} \,.
+\end{equation}
+
+Parities:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\toprule
+State & $\sigma_1$ & $\sigma_2$ & Total parity $\sigma_{\mathrm{tot}}$ \\
+\midrule
+$\ket{3,0}$ & $-1$ & $+1$ & $-1$ \\
+$\ket{2,1}$ & $+1$ & $-1$ & $-1$ \\
+$\ket{1,2}$ & $-1$ & $+1$ & $-1$ \\
+$\ket{0,3}$ & $+1$ & $-1$ & $-1$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Crucially: $N_{\mathrm{tot}} = 3$ is odd, so $\sigma_{\mathrm{tot}} = -1$.  At least one universe is \emph{always} odd.  The system can never reach a state where both universes are even.  Full pairing is impossible.
+
+The $4 \times 4$ Hamiltonian is:
+\begin{equation}
+H = \begin{pmatrix} \Delta + J & \sqrt{3}\,t_1 & t_2\sqrt{3} & 0 \\ \sqrt{3}\,t_1 & -\Delta + J & 2t_1 & t_2\sqrt{3} \\ t_2\sqrt{3} & 2t_1 & \Delta + J & \sqrt{3}\,t_1 \\ 0 & t_2\sqrt{3} & \sqrt{3}\,t_1 & -\Delta + J \end{pmatrix}
+\end{equation}
+where the off-diagonal elements include the appropriate combinatorial factors for fermionic hopping ($\sqrt{n}$ factors) and pair hopping.
+
+\textbf{Key physics:}  The states $\ket{3,0}$ and $\ket{1,2}$ have universe~1 odd; the states $\ket{2,1}$ and $\ket{0,3}$ have universe~2 odd.  There is always one odd universe, so quantum behavior (inter-universe transit) persists indefinitely.  No anchoring mechanism can fully classicalize this system.
+
+This is the microscopic realization of the paper's central claim: we propose that the universe must be odd for quantum mechanics to operate.  An odd total particle number is the necessary condition for permanent quantum activity.
+
+\subsection{General $N$, $K=2$: Even/Odd Dichotomy}
+
+For general $N$ particles in two universes, the Hilbert space is $(N+1)$-dimensional: $\{\ket{N-k, k} : k = 0, 1, \ldots, N\}$.
+
+\textbf{$N$ even:}  The state $\ket{N/2, N/2}$ has both universes with the same parity ($N/2$ each).  If $N/2$ is even, both are in the even (classical) sector.  The system can reach a fully paired ground state.
+
+\textbf{$N$ odd:}  No state has both universes even.  At least one universe is always odd.  Quantum transit never fully freezes out.
+
+The energy gap between the lowest even-parity state and the lowest odd-parity state is:
+\begin{equation}
+\Delta E_{\mathrm{even\text{-}odd}} = \Delta + 2J + O(t_1^2/\Delta) \,.
+\end{equation}
+This gap determines the stability of the classical regime for even-$N$ systems.
+
+%% ======================================================================
+\section{Key Derived Quantities}
+\label{sec:derived}
+
+\subsection{Parity Energy Gap}
+
+The parity energy gap is the energy difference between odd-parity and even-parity configurations of a universe:
+\begin{equation}
+\boxed{\Delta_E = E(\text{odd}) - E(\text{even}) = \Delta + 2Jz\langle\sigma\rangle}
+\label{eq:parity_gap}
+\end{equation}
+
+In mean-field theory, the expectation value $\langle\sigma\rangle$ satisfies the self-consistency equation:
+\begin{equation}
+\langle\sigma\rangle = \tanh\!\left(\beta_{\mathrm{eff}}\left[\Delta + Jz\langle\sigma\rangle\right]\right)
+\end{equation}
+where $\beta_{\mathrm{eff}} = 1/(k_BT_{\mathrm{eff}})$ is an effective inverse temperature governing parity fluctuations.
+
+This equation has a phase transition at:
+\begin{equation}
+\beta_{\mathrm{eff}} \cdot J \cdot z = 1 \,.
+\end{equation}
+Below this critical temperature, the multiverse spontaneously orders into a parity-aligned phase ($\langle\sigma\rangle \neq 0$).  Above it, parity is disordered.
+
+\textbf{Estimated value:}  From matching decoherence rates in existing experiments, we estimate:
+\begin{equation}
+\Delta_E \sim 10^{-6} \text{ to } 10^{-3} \text{ eV} \,.
+\end{equation}
+The lower bound comes from the requirement that mesoscopic systems ($N \sim 10^6$) show coherence; the upper bound from the requirement that macroscopic systems ($N \sim 10^{23}$) decohere effectively instantaneously.
+
+\subsection{Even/Odd Coherence Time Ratio}
+
+This is the \emph{central testable prediction} of the theory.  In a system with controllable particle number, the ratio of coherence times for even-$N$ versus odd-$N$ configurations is:
+\begin{equation}
+\boxed{\frac{\tau_{\mathrm{even}}}{\tau_{\mathrm{odd}}} = \exp\!\left(\frac{\Delta_E}{k_BT}\right)}
+\label{eq:coherence_ratio}
+\end{equation}
+
+The even-parity system has a gap $\Delta_E$ protecting it from parity-flipping decoherence events.  The odd-parity system has no such protection (it is already in the quantum-active sector).
+
+\textbf{Numerical estimates:}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+Temperature & $\Delta_E$ & Ratio $\tau_{\mathrm{even}}/\tau_{\mathrm{odd}}$ \\
+\midrule
+$T = 100$~mK & $10^{-4}$~eV & $\exp(11.6) \approx 1.1 \times 10^5$ \\
+$T = 100$~mK & $10^{-5}$~eV & $\exp(1.16) \approx 3.2$ \\
+$T = 300$~K & $10^{-4}$~eV & $\exp(3.87) \approx 48$ \\
+$T = 300$~K & $10^{-3}$~eV & $\exp(38.7) \approx 6.2 \times 10^{16}$ \\
+$T = 10$~mK & $10^{-4}$~eV & $\exp(116) \approx 10^{50}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+At millikelvin temperatures with $\Delta_E \sim 10^{-4}$~eV, the ratio exceeds $10^4$---a dramatic, unambiguous signal.  At room temperature, even a modest gap of $10^{-4}$~eV predicts a factor of ${\sim}50$ difference, which is experimentally detectable in cold-atom or ion-trap systems.
+
+\subsection{Effective Gravitational Mass}
+
+Since only paired matter sources gravity, the gravitational mass of a particle in a multiverse superposition state $\ket{\psi} = \sum_\alpha c_\alpha \ket{\alpha}$ is:
+\begin{equation}
+\boxed{m_{\mathrm{grav}}^{(\alpha)} = m \, |c_\alpha|^2 \, f_{\mathrm{pair}}^{(\alpha)}}
+\label{eq:grav_mass}
+\end{equation}
+where $f_{\mathrm{pair}}^{(\alpha)} = N_\alpha^{\mathrm{pair}} / (N_\alpha/2)$ is the pairing fraction in universe $\alpha$ (the fraction of fermions that are paired, normalized so that $f_{\mathrm{pair}} = 1$ when all fermions are paired).
+
+The total gravitational mass summed over all universes:
+\begin{equation}
+m_{\mathrm{grav}}^{\mathrm{total}} = m \sum_{\alpha=1}^{K} |c_\alpha|^2 \, f_{\mathrm{pair}}^{(\alpha)} = m \langle f_{\mathrm{pair}} \rangle \,.
+\end{equation}
+
+\textbf{Limiting cases:}
+\begin{itemize}
+\item \textbf{Fully paired} ($f_{\mathrm{pair}} = 1$, all particles anchored): $m_{\mathrm{grav}} = m$.  Standard gravity recovered.
+\item \textbf{Fully unpaired in transit} ($f_{\mathrm{pair}} = 0$, particle delocalized across universes): $m_{\mathrm{grav}} = 0$.  No gravitational interaction.
+\item \textbf{Macroscopic object} ($N \sim 10^{23}$, one unpaired particle): $f_{\mathrm{pair}} = 1 - 1/N \approx 1$.  Negligible deviation from standard gravity.
+\end{itemize}
+
+\subsection{Critical Pairing Fraction}
+
+The critical pairing fraction at which the system transitions from quantum-active to classical-dominant is:
+\begin{equation}
+\boxed{f_c = 1 - \frac{1}{2N}}
+\label{eq:critical_pairing}
+\end{equation}
+
+For $N$ particles, the system is in the even-parity (classical) sector when all but at most zero particles are paired.  Since pairing consumes particles in groups of~2, the last unpaired particle (for odd $N$) prevents $f_{\mathrm{pair}}$ from reaching~1.
+
+The transition is \emph{sharp} (first-order-like) because parity is binary---there is no continuous interpolation between $\sigma = +1$ and $\sigma = -1$.  The crossover width in $f_{\mathrm{pair}}$ is determined by thermal fluctuations:
+\begin{equation}
+\delta f \sim \sqrt{\frac{k_BT}{N \cdot \Delta_E}} \,.
+\end{equation}
+For $N = 10^{6}$, $T = 1$~K, $\Delta_E = 10^{-4}$~eV: $\delta f \sim 10^{-4}$.  The transition is extremely sharp even for mesoscopic systems.
+
+\subsection{Hopping Ratio}
+
+The ratio of pair hopping to single-particle hopping amplitudes:
+\begin{equation}
+\boxed{\frac{t_2}{t_1} = \exp\!\left(\frac{\Delta_E}{k_BT}\right)}
+\label{eq:hopping_ratio}
+\end{equation}
+
+This ratio controls the dominant transport mechanism:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+Temperature & $\Delta_E$ & $t_2/t_1$ \\
+\midrule
+$T = 300$~K & $10^{-4}$~eV & $\approx 48$ \\
+$T = 100$~mK & $10^{-4}$~eV & $\approx 1.1 \times 10^5$ \\
+$T = 10$~mK & $10^{-4}$~eV & $\approx 10^{50}$ \\
+$T = 1$~mK & $10^{-4}$~eV & $\approx 10^{503}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+At millikelvin temperatures, single-particle hopping is effectively impossible.  Only pairs can transit.  This is why superconductors and BECs exhibit macroscopic coherence: the only available transit mode (pair hopping) preserves parity and thus preserves the coherent condensate.
+
+At room temperature, single-particle hopping is merely suppressed by a factor of ${\sim}50$, explaining why quantum effects are observable but fragile at everyday temperatures.
+
+%% ======================================================================
+\section{Consistency Checks}
+\label{sec:consistency}
+
+\subsection{Lorentz Invariance}
+
+Each universe $\alpha$ is independently Lorentz covariant.  The free Dirac Lagrangian $\mathcal{L}_{\mathrm{free}}^{(\alpha)}$ and pair Lagrangian $\mathcal{L}_{\mathrm{pair}}^{(\alpha)}$ are manifestly Lorentz invariant within universe $\alpha$.
+
+The transit Lagrangian $\mathcal{L}_{\mathrm{transit}}$ contains terms of the form $\bar{\psi}_\alpha \psi_\beta$ and $\Phi_\alpha^* \Phi_\beta$.  These are Lorentz \emph{scalars} constructed from fields in different universes.  Since the universes share the same Lorentz group structure (same metric signature, same Clifford algebra), the bilinear $\bar{\psi}_\alpha \psi_\beta$ transforms as a scalar under simultaneous Lorentz transformations in both universes.
+
+There is no preferred frame within any single universe.  The multiverse graph $G_K$ defines a structure in universe-label space, not in spacetime.  Lorentz invariance is preserved.
+
+\subsection{Energy Conservation}
+
+The total multiverse action $S = \int d^4x \; \mathcal{L}_{\mathrm{total}}$ is invariant under time translations $t \to t + \epsilon$ (all universes share the same time parameter).  By Noether's theorem, the total multiverse energy is conserved:
+\begin{equation}
+E_{\mathrm{total}} = \sum_{\alpha=1}^{K} E_\alpha = \mathrm{const.}
+\end{equation}
+
+Individual universe energies $E_\alpha$ are \emph{not} conserved---particles transit between universes, carrying energy with them.  This is entirely analogous to coupled subsystems in ordinary mechanics: the energy of each subsystem fluctuates, but the total is conserved.
+
+The transit Lagrangian explicitly mediates energy exchange:
+\begin{equation}
+\frac{dE_\alpha}{dt} = t_1 \sum_{\beta \sim \alpha} \mathrm{Re}\!\left(\bar{\psi}_\alpha \psi_\beta\right) + t_2 \sum_{\beta \sim \alpha} \mathrm{Re}\!\left(\Phi_\alpha^* \, \partial_t \Phi_\beta\right) \neq 0 \,.
+\end{equation}
+
+\subsection{Weak Equivalence Principle}
+
+The weak equivalence principle (WEP) states that all objects fall at the same rate regardless of composition: $m_{\mathrm{grav}} / m_{\mathrm{inertial}} = 1$.
+
+In our framework, this ratio is:
+\begin{equation}
+\frac{m_{\mathrm{grav}}}{m_{\mathrm{inertial}}} = f_{\mathrm{pair}} \,.
+\end{equation}
+
+For unpaired matter, $f_{\mathrm{pair}} < 1$, and the WEP is \emph{violated}.  The E\"otv\"os parameter measuring the violation is:
+\begin{equation}
+\eta_{\mathrm{WEP}} = 1 - f_{\mathrm{pair}} \,.
+\end{equation}
+
+\textbf{For macroscopic matter:}  A macroscopic object of mass $M$ containing $N \sim 10^{23}$ fermions has at most a few unpaired particles (if total particle number is odd, exactly one is unpaired).  Therefore:
+\begin{equation}
+f_{\mathrm{pair}} = 1 - \frac{N_{\mathrm{unpaired}}}{N} \geq 1 - \frac{1}{N} \approx 1 - 10^{-23}
+\end{equation}
+\begin{equation}
+\eta_{\mathrm{WEP}} \leq 10^{-23} \,.
+\end{equation}
+
+Current E\"otv\"os experiments (MICROSCOPE satellite, 2022~\cite{microscope}) achieve sensitivity $\eta < 10^{-15}$.  The predicted violation of $\eta \sim 10^{-23}$ for macroscopic objects is eight orders of magnitude below detection threshold.  The WEP is recovered as an emergent property of macroscopic pairing, with violations detectable only in proposed mesoscopic superposition experiments where $f_{\mathrm{pair}}$ is significantly less than~1.
+
+\textbf{For mesoscopic systems:}  A nanoparticle with $N \sim 10^{6}$ atoms in a superposition state might have $f_{\mathrm{pair}} \sim 0.5$, giving $\eta_{\mathrm{WEP}} \sim 0.5$---a dramatic violation detectable by proposed experiments (MAQRO, optomechanical resonators).
+
+\subsection{Single-Universe Limit ($K = 1$)}
+
+When $K = 1$, the multiverse graph has a single vertex and no edges:
+\begin{itemize}
+\item $\mathcal{L}_{\mathrm{transit}} = 0$: No inter-universe hopping.
+\item $\sigma_\alpha$ is fixed: No parity dynamics (no neighbors to couple to).
+\item $\mathcal{L}_{\mathrm{parity}} = -\Delta \sigma / 2$: A constant energy shift.
+\item $\mathcal{L}_{\mathrm{pair}}$ retains its structure: Pairing still occurs within the universe.
+\end{itemize}
+
+The theory reduces to standard quantum field theory in a single universe with a BCS-like pairing interaction.  There is no mechanism for superposition-as-transit, no inter-universe interference.  This confirms that $K \geq 2$ is required for the parity framework to produce quantum phenomena.
+
+\subsection{Standard Quantum Mechanics Recovery ($K \to \infty$)}
+\label{sec:schrodinger}
+
+This is the crucial consistency check.  On a regular $d$-dimensional lattice with spacing $a$, the hopping sum becomes a discrete Laplacian:
+\begin{equation}
+t_1 \sum_{\beta \sim \alpha} \psi_\beta = t_1 \left(\sum_{\beta \sim \alpha} \psi_\beta - z \, \psi_\alpha\right) + z \, t_1 \, \psi_\alpha = t_1 \, (\Delta_G \psi)_\alpha + z \, t_1 \, \psi_\alpha \,.
+\end{equation}
+
+In the continuum limit $a \to 0$, $K \to \infty$ with:
+\begin{equation}
+t_1 = \frac{\hbar^2}{2m a^2}
+\end{equation}
+the discrete Laplacian becomes the continuous Laplacian:
+\begin{equation}
+t_1 \, (\Delta_G \psi)_\alpha \;\longrightarrow\; \frac{\hbar^2}{2m} \nabla^2 \psi(x)
+\end{equation}
+where we identify the universe label $\alpha$ with a position $x$ in configuration space.  The modified Dirac equation (Sec.~\ref{sec:eom}), in the non-relativistic limit with $\Delta, J, \kappa \to 0$ (no parity, no anchoring), becomes:
+\begin{equation}
+i\hbar \frac{\partial \psi}{\partial t} = -\frac{\hbar^2}{2m}\nabla^2 \psi + V(x)\psi \,.
+\end{equation}
+This is the Schr\"odinger equation.  The configuration space of quantum mechanics is identified with the universe-label space of the multiverse.  A ``wavefunction'' $\psi(x)$ is the amplitude for a particle to be at position $x$ in universe-label space.  This confirms the Many-Interacting-Worlds mechanism of Hall, Deckert, and Wiseman~\cite{hall2014}.
+
+\subsection{MIW Recovery}
+
+Setting the parity-specific parameters to zero:
+\begin{equation}
+\Delta = 0, \quad J = 0, \quad t_1 = t_2 \equiv t, \quad \kappa = 0
+\end{equation}
+eliminates all parity structure (no energy gap, no parity coupling, equal hopping for singles and pairs, no anchoring).  The Lagrangian reduces to:
+\begin{equation}
+\mathcal{L} = \sum_\alpha \mathcal{L}_{\mathrm{free}}^{(\alpha)} + t \sum_{\langle\alpha,\beta\rangle} \left(\bar{\psi}_\alpha \psi_\beta + \Phi_\alpha^* \Phi_\beta + \mathrm{h.c.}\right) .
+\end{equation}
+This is exactly the MIW Hamiltonian: many classical worlds interacting through a universal hopping parameter.  The parity framework is a strict extension of MIW, reducing to it when all parity-related parameters vanish.
+
+%% ======================================================================
+\section{Connection to Existing Frameworks}
+\label{sec:connections}
+
+\subsection{BCS Superconductivity}
+
+The pair Lagrangian $\mathcal{L}_{\mathrm{pair}}$ (Sec.~\ref{sec:lagrangian}) is the relativistic generalization of BCS theory~\cite{bcs1957}, extended to the multiverse:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+BCS Concept & Parity Framework Analog \\
+\midrule
+Cooper pair in metal & Paired fermions in universe $\alpha$ \\
+BCS gap $\Delta$ & $|\langle\Phi_\alpha\rangle|$ \\
+Normal state (above $T_c$) & Odd-parity sector ($\sigma = -1$) \\
+Superconducting state (below $T_c$) & Even-parity sector ($\sigma = +1$) \\
+Josephson junction coupling & Inter-universe pair hopping $t_2$ \\
+Quasiparticle excitation & Unpaired fermion in transit \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The BCS gap equation (Sec.~\ref{sec:eom}) is recovered in the static, single-universe limit.  The inter-universe Josephson coupling $t_2$ is a new prediction: pair condensates in different universes are phase-coherent.
+
+\subsection{$\mathbb{Z}_2$ Lattice Gauge Theory}
+
+The parity sector of the theory has the structure of a $\mathbb{Z}_2$ lattice gauge theory on $G_K$:
+\begin{itemize}
+\item \textbf{Matter fields} $\psi_\alpha$: Live on vertices (universes).
+\item \textbf{Gauge links} $\sigma_{\alpha\beta} = \sigma_\alpha \sigma_\beta$: Live on edges (transit channels).
+\item \textbf{Wilson loop} around a cycle $C$ in $G_K$:
+\end{itemize}
+\begin{equation}
+W(C) = \prod_{\langle\alpha,\beta\rangle \in C} \sigma_\alpha \sigma_\beta = \prod_{\alpha \in C} \sigma_\alpha^{2} = 1 \quad \text{(trivially).}
+\end{equation}
+
+For the Ising model, the Wilson loop is always~1 because $\sigma_\alpha^2 = 1$.  However, the \emph{frustrated Wilson loop} on non-bipartite graphs can detect topological obstructions to parity alignment:
+\begin{equation}
+W_F(C) = \prod_{\langle\alpha,\beta\rangle \in C} J_{\alpha\beta} \, \sigma_\alpha \sigma_\beta
+\end{equation}
+where $J_{\alpha\beta}$ can be negative (antiferromagnetic) on some edges.
+
+The correspondence to gauge theory phases:
+\begin{itemize}
+\item \textbf{Confinement} ($\langle\sigma\rangle \neq 0$, ordered phase): Classical regime.  Parity is frozen, particles are anchored.
+\item \textbf{Deconfinement} ($\langle\sigma\rangle = 0$, disordered phase): Quantum regime.  Parity fluctuates freely, particles transit between universes.
+\end{itemize}
+
+\subsection{Many-Interacting-Worlds (MIW)}
+
+Our framework extends MIW~\cite{hall2014} in four specific directions:
+\begin{enumerate}
+\item \textbf{Parity structure:} The $\mathbb{Z}_2$ order parameter $\sigma_\alpha$ and the Ising Lagrangian $\mathcal{L}_{\mathrm{parity}}$ provide an energetic distinction between quantum-active and classical-dominant universes.  MIW treats all worlds equivalently.
+\item \textbf{Single/pair distinction:} The hierarchy $t_2 \gg t_1$ at low temperatures introduces a qualitative difference between single-particle and pair-mediated hopping.  MIW has a single hopping parameter.
+\item \textbf{Modified gravity:} The restriction $G_{\mu\nu} = 8\pi G \, T_{\mu\nu}^{\mathrm{paired}}$ is absent in MIW, which does not address gravity.
+\item \textbf{Anchoring mechanism:} The anchoring Lagrangian $\mathcal{L}_{\mathrm{anchor}}$ provides a decoherence mechanism tied to the local density of classical matter.  MIW does not include decoherence.
+\end{enumerate}
+
+When all four extensions are removed ($\Delta = J = 0$, $t_1 = t_2$, $\kappa = 0$, standard gravity), we recover MIW exactly (Sec.~\ref{sec:consistency}).
+
+\subsection{Di\'osi--Penrose Objective Collapse}
+
+Di\'osi~\cite{diosi1987} and Penrose~\cite{penrose1996} independently proposed that gravity causes wavefunction collapse on a timescale:
+\begin{equation}
+\tau_{\mathrm{DP}} = \frac{\hbar \, d}{G \, m^2}
+\end{equation}
+where $d$ is the spatial separation of the superposed states and $m$ is the mass.
+
+Our framework makes a sharply different prediction: we conjecture that unpaired matter does not source gravity ($m_{\mathrm{grav}} = 0$ for $f_{\mathrm{pair}} = 0$).  Therefore, there is no gravitational self-energy to drive collapse.  A massive particle in a genuine quantum superposition (fully unpaired, in transit between universes) experiences no gravitational decoherence whatsoever.
+
+The \emph{distinguishing experiment} is a massive isolated superposition:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+Prediction & Di\'osi--Penrose & Parity Framework \\
+\midrule
+Superposition lifetime & $\tau_{\mathrm{DP}} = \hbar d / (Gm^2)$ & No gravitational collapse; \\
+ & & limited by $\kappa \cdot A$ (anchoring) \\
+Mass dependence & Collapse faster for larger $m$ & No mass dependence \\
+ & & for isolated systems \\
+Isolation effect & Irrelevant (gravity is & Reduces $A(x)$, \\
+ & self-interaction) & extends coherence \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+If a massive ($m > 10^{-14}$~kg) object can be placed in spatial superposition in a well-isolated environment, and the superposition persists beyond $\tau_{\mathrm{DP}}$, Di\'osi--Penrose is falsified and the parity framework is supported.
+
+%% ======================================================================
+\section{Free Parameters and Constraints}
+\label{sec:parameters}
+
+\subsection{Parameter Inventory}
+
+The theory contains the following parameters:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llll}
+\toprule
+Parameter & Symbol & Description & Dimensions \\
+\midrule
+Base hopping amplitude & $t_0$ & Intrinsic transit rate & [energy] \\
+Parity on-site energy & $\Delta$ & Cost of odd parity & [energy] \\
+Parity coupling & $J$ & Nearest-neighbor Ising coupling & [energy] \\
+Pairing Yukawa coupling & $g_{\mathrm{pair}}$ & Fermion-pair coupling & $[\mathrm{mass}]^{-1}$ \\
+Pair potential mass & $\mu_{\mathrm{pair}}$ & Mexican-hat parameter & [mass] \\
+Pair self-coupling & $\lambda_{\mathrm{pair}}$ & Quartic coupling & [dimensionless] \\
+Anchoring coupling & $\kappa$ & Decoherence strength & $[\mathrm{energy} \cdot \mathrm{length}^3]$ \\
+Anchoring range & $r_{\mathrm{anchor}}$ & Spatial scale of anchoring & [length] \\
+Number of universes & $K$ & Graph size & [dimensionless] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Constraints}
+
+\textbf{From Schr\"odinger equation recovery (Sec.~\ref{sec:schrodinger}):}
+\begin{equation}
+t_0 = \frac{\hbar^2}{2m a^2} \,.
+\end{equation}
+This fixes $t_0$ in terms of the lattice spacing $a$ and particle mass $m$.  In the continuum limit, $t_0 \to \infty$ and $a \to 0$ with $t_0 a^2$ fixed.
+
+\textbf{From BCS-scale gap:}
+
+$g_{\mathrm{pair}}$, $\mu_{\mathrm{pair}}$, $\lambda_{\mathrm{pair}}$ are constrained to reproduce the known BCS gap $\Delta_{\mathrm{BCS}} \sim 10^{-3}$~eV in superconductors.  This fixes the ratios $g_{\mathrm{pair}}^2 / \lambda_{\mathrm{pair}}$ and $\mu_{\mathrm{pair}}^2 / \lambda_{\mathrm{pair}}$.
+
+\textbf{From known decoherence rates:}
+
+The product $\kappa \cdot A$ must reproduce observed decoherence rates in mesoscopic systems:
+\begin{equation}
+\Gamma_{\mathrm{decohere}} = \frac{\kappa \cdot A}{\hbar} \sim 10^{6} \text{ to } 10^{12} \text{ s}^{-1}
+\end{equation}
+for typical laboratory environments.  This constrains $\kappa \cdot \kappa_A \cdot n_{\mathrm{pair}} \cdot r_{\mathrm{anchor}}^3$.
+
+\textbf{From WEP bounds:}
+
+The pairing fraction for macroscopic matter must satisfy $f_{\mathrm{pair}} > 1 - 10^{-15}$, which is trivially satisfied for $N > 10^{15}$.
+
+\textbf{From Arndt et al.~\cite{arndt1999} and Fein et al.~\cite{fein2019} interference experiments:}
+
+Large-molecule interference ($m \sim 10^{-22}$~kg for C$_{60}$, $m \sim 10^{-21}$~kg for 2000-atom molecules) constrains the anchoring range:
+\begin{equation}
+r_{\mathrm{anchor}} < d_{\mathrm{slit\text{-}screen}} \sim 1 \text{ m}
+\end{equation}
+and the anchoring coupling must be weak enough that molecules in vacuum maintain coherence over the experimental length scale.
+
+\subsection{Truly Free Parameters}
+
+After applying all constraints, the theory has \emph{two} genuinely free parameters:
+\begin{equation}
+\boxed{\Delta_E \text{ (parity energy gap)} \qquad \text{and} \qquad \kappa \text{ (anchoring coupling)}}
+\end{equation}
+
+These two parameters determine all testable predictions:
+\begin{itemize}
+\item $\Delta_E$ sets the even/odd coherence time ratio (Sec.~\ref{sec:derived}), the hopping ratio (Sec.~\ref{sec:derived}), and the parity phase transition temperature.
+\item $\kappa$ sets the decoherence rate near classical matter (Sec.~\ref{sec:lagrangian}) and the spatial range of the ``observation'' effect.
+\end{itemize}
+
+A single experiment measuring parity-dependent decoherence (Sec.~\ref{sec:derived}) at two different temperatures would determine both $\Delta_E$ (from the ratio) and $\kappa$ (from the absolute rate), yielding a fully predictive theory with zero free parameters.
+
+%% ======================================================================
+\section{Summary of Testable Predictions}
+\label{sec:predictions}
+
+For convenience, we collect the quantitative predictions that distinguish this framework from standard quantum mechanics and from competing interpretations:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+Prediction & Formula & Key dependence \\
+\midrule
+Even/odd coherence ratio & $\tau_{\mathrm{even}}/\tau_{\mathrm{odd}} = \exp(\Delta_E / k_BT)$ & Exponential in $\Delta_E/T$ \\
+Gravitational mass of & $m_{\mathrm{grav}} = m \cdot f_{\mathrm{pair}}$ & Vanishes for \\
+\quad superposed matter & & \quad unpaired matter \\
+WEP violation for & $\eta = 1 - f_{\mathrm{pair}}$ & Detectable for \\
+\quad mesoscopic systems & & \quad $N < 10^{15}$ \\
+No gravitational collapse & $\tau > \tau_{\mathrm{DP}}$ for isolated systems & Contradicts \\
+\quad of superpositions & & \quad Di\'osi--Penrose \\
+Pair hopping dominance & $t_2/t_1 = \exp(\Delta_E / k_BT)$ & Explains BEC/ \\
+\quad at low $T$ & & \quad superconductor coherence \\
+Parity phase transition & $T_c = Jz / k_B$ & Multiverse-scale ordering \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%% ======================================================================
+\begin{thebibliography}{99}
+
+\bibitem{companion}
+K.~J.~M, ``Parity-Driven Quantum Mechanics: A Framework for Superposition, Collapse, and the Gravity-Quantum Divide'' (2026).
+
+\bibitem{arndt1999}
+M.~Arndt, O.~Nairz, J.~Vos-Andreae, C.~Keller, G.~van der Zouw, and A.~Zeilinger,
+``Wave-particle duality of C$_{60}$ molecules,''
+\textit{Nature} \textbf{401}, 680--682 (1999).
+
+\bibitem{bcs1957}
+J.~Bardeen, L.~N.~Cooper, and J.~R.~Schrieffer,
+``Theory of superconductivity,''
+\textit{Phys.\ Rev.} \textbf{108}, 1175--1204 (1957).
+
+\bibitem{diosi1987}
+L.~Di\'osi,
+``A universal master equation for the gravitational violation of quantum mechanics,''
+\textit{Phys.\ Lett.\ A} \textbf{120}, 377--381 (1987).
+
+\bibitem{fein2019}
+Y.~Y.~Fein, P.~Geyer, P.~Zwick, F.~Kialka, S.~Pedalino, M.~Mayor, S.~Gerlich, and M.~Arndt,
+``Quantum superposition of molecules beyond 25~kDa,''
+\textit{Nat.\ Phys.} \textbf{15}, 1242--1245 (2019).
+
+\bibitem{hall2014}
+M.~J.~W.~Hall, D.-A.~Deckert, and H.~M.~Wiseman,
+``Quantum phenomena modeled by interactions between many classical worlds,''
+\textit{Phys.\ Rev.\ X} \textbf{4}, 041013 (2014).
+
+\bibitem{itano1990}
+W.~M.~Itano, D.~J.~Heinzen, J.~J.~Bollinger, and D.~J.~Wineland,
+``Quantum Zeno effect,''
+\textit{Phys.\ Rev.\ A} \textbf{41}, 2295--2300 (1990).
+
+\bibitem{jacques2007}
+V.~Jacques, E.~Wu, F.~Grosshans, F.~Treussart, P.~Grangier, A.~Aspect, and J.-F.~Roch,
+``Experimental realization of Wheeler's delayed-choice gedanken experiment,''
+\textit{Science} \textbf{315}, 966--968 (2007).
+
+\bibitem{kitaev2003}
+A.~Y.~Kitaev,
+``Fault-tolerant quantum computation by anyons,''
+\textit{Ann.\ Phys.} \textbf{303}, 2--30 (2003).
+
+\bibitem{misra1977}
+B.~Misra and E.~C.~G.~Sudarshan,
+``The Zeno's paradox in quantum theory,''
+\textit{J.\ Math.\ Phys.} \textbf{18}, 756--763 (1977).
+
+\bibitem{microscope}
+MICROSCOPE Collaboration,
+``MICROSCOPE mission: Final results of the test of the equivalence principle,''
+\textit{Phys.\ Rev.\ Lett.} \textbf{129}, 121102 (2022).
+
+\bibitem{parker1968}
+L.~Parker,
+``Particle creation in expanding universes,''
+\textit{Phys.\ Rev.\ Lett.} \textbf{21}, 562--564 (1968).
+
+\bibitem{penrose1996}
+R.~Penrose,
+``On gravity's role in quantum state reduction,''
+\textit{Gen.\ Relativ.\ Gravit.} \textbf{28}, 581--600 (1996).
+
+\bibitem{sakharov1967}
+A.~D.~Sakharov,
+``Violation of CP invariance, C asymmetry, and baryon asymmetry of the universe,''
+\textit{JETP Lett.} \textbf{5}, 24--27 (1967).
+
+\bibitem{shor1995}
+P.~W.~Shor,
+``Scheme for reducing decoherence in quantum computer memory,''
+\textit{Phys.\ Rev.\ A} \textbf{52}, R2493--R2496 (1995).
+
+\bibitem{wick1952}
+G.~C.~Wick, A.~S.~Wightman, and E.~P.~Wigner,
+``The intrinsic parity of elementary particles,''
+\textit{Phys.\ Rev.} \textbf{88}, 101--105 (1952).
+
+\bibitem{witten1982}
+E.~Witten,
+``Constraints on supersymmetry breaking,''
+\textit{Nucl.\ Phys.\ B} \textbf{202}, 253--316 (1982).
+
+\end{thebibliography}
+
+\end{document}
